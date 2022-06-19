@@ -1,4 +1,5 @@
-# landing
+# simple_projects
+Personal dump of simple prjects that I try to make to become better developer. Might turn into a blog some day
 
 ## Build Setup
 
