@@ -8,10 +8,11 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { changeTheme } from '~/composables/index'
-onMounted(() => {
+onBeforeMount(() => {
     // set default theme
-    localStorage.theme ? changeTheme(localStorage.theme): false
+    const theme = localStorage.getItem('theme')
+    theme ? changeTheme(theme): false
 })
 </script>

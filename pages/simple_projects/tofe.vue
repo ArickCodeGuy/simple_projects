@@ -1,3 +1,8 @@
+---
+name: 2048
+description: Recreation of a viral game 2048. Combine blocks to get to 2048
+---
+
 <template>
     <div class="tofe">
         <section class="section">

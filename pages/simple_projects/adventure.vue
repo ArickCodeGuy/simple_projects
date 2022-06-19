@@ -1,3 +1,8 @@
+---
+name: Adventure capitalist clone
+description: Just an existing game budget clone
+---
+
 <template>
     <section class="section">
         <div class="container">

@@ -15,7 +15,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="theme-switch" @click="switchTheme" title="Change theme">{{theme}}</div>
+            <div class="theme-switch" @click="switchTheme" title="Change theme"></div>
         </div>
     </header>
     <div class="header-fake" ref="headerFake"></div>
@@ -24,8 +24,9 @@
 <script lang="ts" setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 const nav = ref([
-    // {text: 'Forum', link: '/forum'}
-]);
+    {text: 'About', link: '/about/'},
+    {text: 'Simple projects', link: '/sp/'}
+])
 import { themeState, changeTheme } from '~/composables/index'
 let theme = ref(themeState())
 function switchTheme() {
@@ -88,6 +89,7 @@ onUnmounted(() => {
     }
 }
 .header-nav {
+    align-items: center;
     &__list {
         margin: 0;
         padding: 0;
@@ -97,7 +99,7 @@ onUnmounted(() => {
         list-style: none;
     }
     &__item {
-        font-size: 2em;
+        // font-size: 2em;
         line-height: 1em;
         margin-left: 5px;
         margin-right: 5px;

@@ -1,3 +1,8 @@
+---
+name: Weather getter
+description: Getting current weather from weatherapi.com api, and displaying it via yandex maps api
+---
+
 <template>
     <div class="weather">
         <section class="section">
@@ -39,6 +44,19 @@
                     <div class="col-lg-8">
                         <div class="map" ref="map"></div>
                     </div>
+                    <div class="col">
+                        <div class="results" v-if="prev_weather_data.length">
+                            <div v-for="(w_data, i) in prev_weather_data" class="result" @click="prevApiCall(w_data, i)">
+                                <div class="result__left">
+                                    <div class="result__title">{{w_data.location.name}}</div>
+                                    <img :src="w_data.current.condition.icon" :alt="w_data.current.condition.text">
+                                </div>
+                                <div class="result__right">
+                                    <div class="result__del" @click.stop="delWeatherData(i)">X</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -47,6 +65,7 @@
 
 <script lang="ts" setup>
 import { ref, watch, onMounted } from 'vue'
+import { useWeatherData, pushWeatherData, delWeatherData } from '~/composables/weatherData'
 const YANDEX_API_KEY = '57455d83-dbfb-4188-922f-1fec2a30b739'
 const WEATHER_API_KEY = 'b9daf97db26b433988b52142220206'
 const url = 'http://api.weatherapi.com/v1/current.json'
@@ -65,6 +84,12 @@ async function getInfo(query): Any {
     if (!res.ok) throw res
     const weather_data = await res.json()
     return weather_data
+}
+function prevApiCall(weather_data, i) {
+    select.value = 'city'
+    form.value.city = weather_data.location.name
+    delWeatherData(i)
+    apiCall()
 }
 async function apiCall(): void {
     const obj = {key: WEATHER_API_KEY}
@@ -92,11 +117,18 @@ watch(select, () => {
     }
 })
 const weather_data = ref(null)
+const prev_weather_data = useWeatherData()
 
 watch(weather_data, (newval) => {
     if (newval?.location?.lat && yandex_map.value) {
-        yandex_map.value.setCenter([newval.location.lat, newval.location.lon], 10)
-        yandex_map.value.container.fitToViewport()
+        yandex_map.value.panTo([newval.location.lat, newval.location.lon], {
+            // flying: false,
+            // safe: false,
+        })
+        // yandex_map.value.container.fitToViewport()
+
+        if (prev_weather_data.value.length > 4) delWeatherData(0)
+        pushWeatherData(newval)
     }
 }, {deep: true})
 
@@ -123,7 +155,6 @@ onMounted(() => {
                     // from 0 (the entire world) to 19.
                     zoom: 7
                 });
-                console.log(yandex_map.value)
             });
         })
 })
@@ -162,5 +193,37 @@ onMounted(() => {
 .map {
     height: 500px;
     background-color: var(--contrast);
+}
+.results {
+    display: grid;
+    grid-gap: 10px;
+}
+.result {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background-color: var(--block-color);
+    padding: 10px;
+    border-radius: 5px;
+    &__title {
+        font-weight: bold;
+    }
+    img {
+        margin: 0 10px;
+        width: 20px;
+        height: 20px;
+    }
+    &__left {
+        display: flex;
+        align-items: center;
+    }
+    &__right {
+        margin-left: auto;
+    }
+    &__del {
+        font-weight: bold;
+        fonts-size: 3em;
+    }
 }
 </style>
