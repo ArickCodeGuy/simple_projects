@@ -4,6 +4,7 @@
         <main class="default-layout__main"><slot/></main>
         <Footer/>
         <div id="popup-target"/>
+        <Alerts />
     </div>
 </template>
 
