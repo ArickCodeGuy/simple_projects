@@ -1,18 +1,31 @@
 <template>
     <div class="Alerts">
-        <div class="alerts-container">
-            <div v-for="alert in alerts.reverse()" class="alert">{{alert.text}}</div>
-        </div>
+        <TransitionGroup
+            name="alerts-container"
+            tag="div"
+        >
+            <div
+                v-for="alert in alerts.slice().reverse()"
+                class="alert"
+                :key="alert"
+                :class="{
+                    'warn': alert.type === 'warn',
+                    'error': alert.type === 'error',
+                }"
+            >{{alert.text}}</div>
+        </TransitionGroup>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { useAlerts, pushAlert } from '~/composables/alerts'
+import { useAlerts } from '~/composables/alerts'
 const alerts = useAlerts()
 </script>
 
 <style lang="scss" scoped>
 .Alerts {
+    display: flex;
+    align-items: flex-start;
     position: fixed;
     pointer-events: none;
     right: 0;
@@ -21,15 +34,15 @@ const alerts = useAlerts()
     width: 100%;
     padding: var(--column-gap);
     z-index: 10000;
-    .alerts-container {
-        margin-left: auto;
-        width: 50%;
-        grid-template-columns: 100%;
-        display: grid;
-        grid-gap: var(--column-gap);
-        @media (min-width: 1200px) {
-            width: 100%;
-            right: 20vw;
+    :deep {
+        > * {
+            margin-left: auto;
+            right: 0;
+            grid-template-columns: 100%;
+            display: grid;
+            grid-gap: var(--column-gap);
+            @media (min-width: 1200px) {
+            }
         }
     }
 }
@@ -37,9 +50,30 @@ const alerts = useAlerts()
     pointer-events: auto;
     width: 250px;
     max-width: 100%;
-    background-color: rgba(255, 255, 0, .7);
+    background-color: var(--header-color-light);
+    color: var(--color-secondary);
     border-radius: 5px;
-    color: #000000;
     padding: 10px;
+    &.warn {
+        background-color: rgba(255, 255, 0, .7);
+        color: #000000;
+    }
+    &.error {
+        background-color: rgba(255, 0, 0, .7);
+        color: #ffffff;
+    }
+    @media (min-width: 1200px) {
+        width: 350px;
+    }
+}
+
+.alerts-container-enter-active,
+.alerts-container-leave-active {
+  transition: .3s;
+}
+.alerts-container-enter-from,
+.alerts-container-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>

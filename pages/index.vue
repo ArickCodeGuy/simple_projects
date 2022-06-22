@@ -5,7 +5,9 @@
                 <h1 class="heading">Home</h1>
                 <p>It's empty in here...</p>
                 <p>Too empty...</p>
-                <p @click="pushAlert({text: 'test', type: 'neutral'})">push alert</p>
+                <p @click="pushAlert({text: Math.random(), type: 'neutral'})">push neutral</p>
+                <p @click="pushAlert({text: Math.random(), type: 'warn'})">push warn</p>
+                <p @click="pushAlert({text: Math.random(), type: 'error'})">push error</p>
             </div>
         </section>
     </div>
