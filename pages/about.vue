@@ -102,7 +102,7 @@ const skills = ref([
     top: 0;
     left: 0;
     transition: .3s top, .3s left;
-    background-color: var(--block-color);
+    background-color: rgba(var(--rgba-bgc), .4);
     &:hover {
         top: -5px;
         left: -5px;
@@ -164,12 +164,12 @@ const skills = ref([
 }
 .skills-item {
     position: relative;
-    background-color: var(--block-color);
+    background-color: rgba(var(--rgba-bgc), .4);
     border-radius: 10px;
     padding: 20px 30px;
     padding-left: 60px;
     &:hover {
-        background-color: var(--block-color2);
+        background-color: rgba(var(--rgba-bgc), .5);
     }
     &__img {
         position: absolute;

@@ -25,6 +25,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 const nav = ref([
     {text: 'About', link: '/about/'},
+    {text: 'Blog', link: '/blog/'},
     {text: 'Simple projects', link: '/sp/'}
 ])
 import { themeState, changeTheme } from '~/composables/index'
@@ -50,7 +51,7 @@ onUnmounted(() => {
 <style lang="scss">
 .header {
     z-index: 1000;
-    background-color: var(--block-color);
+    background-color: rgba(var(--rgba-bgc), .4);
     position: fixed;
     top: 0;
     left: 0;
@@ -61,7 +62,7 @@ onUnmounted(() => {
         justify-content: flex-end;
     }
     .header-nav {
-        display: none;
+        display: flex;
         @media (min-width: 1200px) {
             display: flex;
         }

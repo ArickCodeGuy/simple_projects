@@ -215,7 +215,7 @@ function move(direction): void {
     gap: 1px;
 }
 .cell {
-    background-color: var(--block-color);
+    background-color: rgba(var(--rgba-bgc), .4);
     user-select: none;
     width: 100%;
     display: flex;

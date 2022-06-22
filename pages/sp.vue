@@ -88,7 +88,7 @@ watch(() => route.query, () => {
 .project {
     text-decoration: none;
     border-radius: 10px;
-    background-color: var(--block-color);
+    background-color: rgba(var(--rgba-bgc), .4);
     min-height: 400px;
     transition: .3s;
     overflow: hidden;
@@ -114,6 +114,7 @@ watch(() => route.query, () => {
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: rgba(var(--rgba-bgc), .5);
         img {
             width: 100%;
             height: 100%;
@@ -122,7 +123,6 @@ watch(() => route.query, () => {
         @media (min-width: 1200px) {
             width: 400px;
             height: unset;
-            background-color: var(--block-color2);
         }
     }
     &__title {

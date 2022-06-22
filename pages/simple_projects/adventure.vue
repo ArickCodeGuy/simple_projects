@@ -142,7 +142,7 @@ function buyManager(i: number): void {
         align-items: center;
         justify-content: center;
         width: 2em;
-        background-color: var(--block-color);
+        background-color: rgba(var(--rgba-bgc), .4);
         // background-color: var(--contrast);
         // color: var(--bgc);
     }
@@ -152,7 +152,7 @@ function buyManager(i: number): void {
         cursor: pointer;
         border-radius: 4px;
         position: relative;
-        background-color: var(--block-color);
+        background-color: rgba(var(--rgba-bgc), .4);
         overflow: hidden;
         user-select: none;
         &__completion {

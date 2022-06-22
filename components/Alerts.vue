@@ -50,16 +50,16 @@ const alerts = useAlerts()
     pointer-events: auto;
     width: 250px;
     max-width: 100%;
-    background-color: var(--header-color-light);
+    background-color: rgba(var(--rgba-bgc), .8);
     color: var(--color-secondary);
     border-radius: 5px;
     padding: 10px;
     &.warn {
-        background-color: rgba(255, 255, 0, .7);
+        background-color: rgba(255, 255, 0, .8);
         color: #000000;
     }
     &.error {
-        background-color: rgba(255, 0, 0, .7);
+        background-color: rgba(255, 0, 0, .8);
         color: #ffffff;
     }
     @media (min-width: 1200px) {

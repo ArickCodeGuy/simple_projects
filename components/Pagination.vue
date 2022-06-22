@@ -54,7 +54,7 @@ const emit = defineEmits(['update'])
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: var(--block-color2);
+        background-color: rgba(var(--rgba-bgc), .5);
         border-radius: 5px;
         width: 40px;
         height: 40px;

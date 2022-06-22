@@ -203,7 +203,7 @@ onMounted(() => {
     display: flex;
     align-items: center;
     gap: 30px;
-    background-color: var(--block-color);
+    background-color: rgba(var(--rgba-bgc), .4);
     padding: 10px;
     border-radius: 5px;
     &__title {
