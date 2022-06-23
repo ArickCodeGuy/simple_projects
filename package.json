@@ -3,15 +3,12 @@
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build",
-    "start": "node .output/server/index.mjs",
-    "storybook": "nuxt storybook",
-    "storybook:build": "nuxt storybook build"
+    "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
     "@babel/core": "^7.18.2",
-    "@nuxtjs/storybook": "^4.3.2",
     "babel-loader": "^8.2.5",
-    "nuxt3": "latest",
+    "nuxt": "npm:nuxt3@latest",
     "sass": "^1.43.2",
     "sass-loader": "^10.2.1",
     "vue-loader": "^16.8.3"

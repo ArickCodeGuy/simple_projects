@@ -1,4 +1,4 @@
-import { defineNuxtConfig } from 'nuxt3'
+import { defineNuxtConfig } from 'nuxt'
 
 export default defineNuxtConfig({
   css: [
@@ -6,9 +6,5 @@ export default defineNuxtConfig({
     '~/assets/css/tailwind.css',
     '~/assets/css/index.scss',
     '~/assets/fonts/Montserrat/stylesheet.css',
-  ],
-  storybook: {
-    // Options
-    components: true
-  }
+  ]
 })
