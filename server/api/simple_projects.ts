@@ -1,5 +1,6 @@
-import get_posts from '~/server/api/get_posts'
+import { getPosts } from '~/server/get_posts'
 const SIMPLE_PROJECTS_PATH = '/pages/simple_projects/'
+
 export default (e) => {
-    return get_posts(e.url, SIMPLE_PROJECTS_PATH)
+    return getPosts('/pages/simple_projects/', useQuery(e))
 }

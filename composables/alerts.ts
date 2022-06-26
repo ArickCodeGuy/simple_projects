@@ -1,6 +1,6 @@
-interface Alert {
+export interface Alert {
     text: string;
-    type: 'warn' | 'error' | 'neutral';
+    type?: 'warn' | 'error' | 'success';
 }
 const ALERT_LIFE_TIME = 5000
 export const useAlerts = () => useState<Alert[]>('alerts', () => [])

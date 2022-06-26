@@ -8,10 +8,7 @@
                 v-for="alert in alerts.slice().reverse()"
                 class="alert"
                 :key="alert"
-                :class="{
-                    'warn': alert.type === 'warn',
-                    'error': alert.type === 'error',
-                }"
+                :class="alert.type"
             >{{alert.text}}</div>
         </TransitionGroup>
     </div>
@@ -35,6 +32,7 @@ const alerts = useAlerts()
     padding: var(--column-gap);
     z-index: 10000;
     :deep {
+        // TransitionGroup can not have class ¯\_(ツ)_/¯
         > * {
             margin-left: auto;
             right: 0;
@@ -61,6 +59,10 @@ const alerts = useAlerts()
     &.error {
         background-color: rgba(255, 0, 0, .8);
         color: #ffffff;
+    }
+    &.success {
+        background-color: #00f700;
+        color: #000000;
     }
     @media (min-width: 1200px) {
         width: 350px;

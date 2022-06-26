@@ -19,17 +19,20 @@
         color: var(--primary-color);
         display: block;
         width: 120px;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 0 auto;
+        text-align: center;
         text-decoration: none;
         &:hover {
             text-decoration: underline;
         }
         &__img {
+            img {
+                width: 60px;
+            }
             margin-bottom: 1em;
         }
         &__text {
-            font-size: 2em;
+            // font-size: 2em;
             line-height: normal;
         }
     }

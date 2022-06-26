@@ -1,4 +1,4 @@
-
+// Limitation: multiple query params with same key
 // output { [index: string]: string }
 export function decomposeUrlParams(string) {
     const result = {}
@@ -11,4 +11,14 @@ export function decomposeUrlParams(string) {
         result[key] = value
     })
     return result
+}
+export function buildQueryString(obj: Record<string, string | number>): string {
+    const arr = []
+    for (let param in obj) {
+        const value = obj[param]
+        if (!value) continue
+        arr.push(param + '=' + value)
+    }
+    if (!arr.length) return ''
+    return '?' + arr.join('&')
 }

@@ -9,7 +9,7 @@
                     <nuxt-link
                         v-for="project in posts"
                         class="project"
-                        :to="project.link"
+                        :to="'/simple_projects/' + project.file_name.replace(/\.vue/, '')"
                     >
                         <div class="project__thumb">
                             <img
@@ -29,7 +29,7 @@
                     class="Pagination"
                     :page="page"
                     :pages="pages"
-                    @update="loadPage($event)"
+                    @update="changePage($event)"
                 />
             </div>
         </section>
@@ -39,41 +39,32 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { buildQueryString } from '~/helpers/index'
 const router = useRouter()
 const route = useRoute()
 const posts = ref([])
 const pages = ref<number>(1)
-const page = ref<number>(1)
-const FETCH_URL = '/api/simple_projects/'
-useAsyncData('something', async () => {
-    const page = route.query.page ?? 1
-    loadPosts(page)
+const page = computed<number>(() => {
+    const current_page = parseInt(route.query.page)
+    return current_page ? current_page : 1
 })
-
-async function loadPosts(posts_page: number | undefined): void {
-    let final_url = FETCH_URL
-    if (!isNaN(posts_page) && posts_page !== 1) {
-        final_url += '?page=' + posts_page
-    }
-    const fetchedPosts = await useFetch(final_url)
-    const data = fetchedPosts.data.value
-    posts.value = data.posts
-    pages.value = data.pages
-    page.value = data.page
+watch(page, newval => {
+    // posts.value.length = 0
+    // @@TODO window is undefined on init
+    // window ? window.scrollTo(0,0) : false
+    loadPosts(newval)
+}, {immediate: true})
+async function loadPosts(page_to_load: number): void {
+    let final_url = '/api/simple_projects' + buildQueryString({page: page_to_load})
+    const { data: posts_data } = await useFetch(final_url)
+    posts.value = posts_data.value.posts
+    pages.value = posts_data.value.pages
 }
-function loadPage(page: number):void {
-    let final_url = '/sp/'
-    if (page !== 1) {
-        final_url += '?page=' + page
-    }
-    router.push(final_url)
+function changePage(page_to_chage_to: number):void {
+    const query = {}
+    page_to_chage_to !== 1 ? query.page = page_to_chage_to : false
+    router.push({ query })
 }
-
-watch(() => route.query, () => {
-    posts.value.length = 0
-    loadPosts(parseInt(route.query.page))
-    window ? window.scrollTo(0,0) : false
-}, {deep: true})
 </script>
 
 <style lang="scss" scoped>
