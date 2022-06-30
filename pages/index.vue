@@ -13,7 +13,3 @@
         </section>
     </div>
 </template>
-
-<script lang="ts" setup>
-import { pushAlert } from '~/composables/alerts'
-</script>

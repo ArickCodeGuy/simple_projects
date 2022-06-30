@@ -3,9 +3,10 @@ export interface Alert {
     type?: 'warn' | 'error' | 'success';
 }
 const ALERT_LIFE_TIME = 5000
-export const useAlerts = () => useState<Alert[]>('alerts', () => [])
 
-export const pushAlert = (alert: alert) : void => {
+export const useAlerts = () => useState<Alert[]>('Alerts', () => [])
+
+export const pushAlert = (alert: Alert) : void => {
     useAlerts().value.push(alert)
     setTimeout(() => {
         useAlerts().value.splice(0, 1)

@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <NuxtLayout>
-      <NuxtPage/>
-    </NuxtLayout>
-  </div>
+    <div>
+        <NuxtLayout>
+            <NuxtPage/>
+        </NuxtLayout>
+        <div id="popup-target" />
+        <Alerts />
+    </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { changeTheme } from '~/composables/index'
 onMounted(() => {
     // set default theme
