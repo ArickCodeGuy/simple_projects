@@ -20,6 +20,6 @@ $ npm run generate
 
 ## Libs
 
-Nuxt 3
-marked - for parsing .md files
-gray-matter - for getting page essentials
+Nuxt 3  
+marked - for parsing .md files  
+gray-matter - for getting page essentials  
