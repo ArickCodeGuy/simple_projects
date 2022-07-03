@@ -1,0 +1,7 @@
+- add animation to tofe. Branch fix/tofe
+- add more blog styling (code, pre)
+- add multiple buy logic (adventure)
+
+- storybook
+
+- simple project. Economy comparasing

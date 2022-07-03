@@ -101,7 +101,6 @@ const nav_show = ref<boolean>(false)
         }
     }
     @media (min-width: 1200px) {
-        width: unset;
         transform: none;
         display: block;
         &__title {
@@ -111,6 +110,7 @@ const nav_show = ref<boolean>(false)
             display: none;
         }
         ul {
+            width: unset;
             position: unset;
             padding: 0;
             box-shadow: none;
