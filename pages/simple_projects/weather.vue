@@ -11,7 +11,7 @@ description: Getting current weather from weatherapi.com api, and displaying it 
                 <p>Easily get weather info via <a href="http://api.weatherapi.com" target="_blank">http://api.weatherapi.com</a></p>
                 <form class="weather-form" @submit.prevent="apiCall">
                     <select placeholder="Select" v-model="select">
-                        <option v-for="option in selectOptions" :value="option">{{option}}</option>
+                        <option v-for="option in selectOptions" :value="option" :key="option">{{option}}</option>
                     </select>
 
                     <div v-if="select === 'cords'" class="weather-form__cords">
@@ -46,7 +46,7 @@ description: Getting current weather from weatherapi.com api, and displaying it 
                     </div>
                     <div class="col">
                         <div class="results" v-if="prev_weather_data.length">
-                            <div v-for="(w_data, i) in prev_weather_data" class="result" @click="prevApiCall(w_data, i)">
+                            <div v-for="(w_data, i) in prev_weather_data" class="result" :key="i" @click="prevApiCall(w_data, i)">
                                 <div class="result__left">
                                     <div class="result__title">{{w_data.location.name}}</div>
                                     <img :src="w_data.current.condition.icon" :alt="w_data.current.condition.text">
@@ -70,14 +70,14 @@ const YANDEX_API_KEY = '57455d83-dbfb-4188-922f-1fec2a30b739'
 const WEATHER_API_KEY = 'b9daf97db26b433988b52142220206'
 const url = 'http://api.weatherapi.com/v1/current.json'
 function generateQuery(obj: Record<string, string>): string {
-    if (Object.keys(obj) === 0) return ''
+    if (Object.keys(obj).length === 0) return ''
     let query = '?'
     for (const key in obj) {
         query += key + '=' + obj[key] + '&'
     }
     return query.substring(0, query.length - 1)
 }
-async function getInfo(query): Any {
+async function getInfo(query): Promise<any> {
     const res = await fetch(url + query, {
         method: 'GET'
     })
@@ -91,8 +91,8 @@ function prevApiCall(weather_data, i) {
     delWeatherData(i)
     apiCall()
 }
-async function apiCall(): void {
-    const obj = {key: WEATHER_API_KEY}
+async function apiCall(): Promise<void> {
+    const obj: any = {key: WEATHER_API_KEY}
     if (select.value === 'cords') {
         obj.q = `${form.value.lat},${form.value.lon}`
     }else {
@@ -180,7 +180,7 @@ onMounted(() => {
     max-width: 350px;
     &__icon {
         width: 100px;
-        flex-shring: 0;
+        flex-shrink: 0;
         img {
             width: 100%;
             height: 100%;
