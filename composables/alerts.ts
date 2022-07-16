@@ -1,14 +1,31 @@
+import { v4 as uuidv4 } from 'uuid';
+
+export type AlertType = 'warn' | 'error' | 'success' | undefined
 export interface Alert {
+    id: string;
     text: string;
-    type?: 'warn' | 'error' | 'success';
+    time: number;
+    type?: AlertType;
 }
 const ALERT_LIFE_TIME = 5000
 
 export const useAlerts = () => useState<Alert[]>('Alerts', () => [])
 
-export const pushAlert = (alert: Alert) : void => {
-    useAlerts().value.push(alert)
+export const pushAlert = (alert: {text: string, type?: AlertType, time?: number}) : void => {
+    const id = uuidv4()
+    const time = alert.time || ALERT_LIFE_TIME
+
+    useAlerts().value.push({id, time, ...alert})
     setTimeout(() => {
-        useAlerts().value.splice(0, 1)
-    }, ALERT_LIFE_TIME)
+        removeAlert(id)
+    }, time)
+}
+
+export const removeAlert = (alert_id: string) : boolean => {
+    const alerts = useAlerts().value
+    const alert_index = alerts.findIndex(i => i.id === alert_id)
+    if (alert_index === -1) return false
+
+    alerts.splice(alert_index, 1)
+    return true
 }

@@ -1,21 +1,15 @@
 <template>
     <div class="Alerts">
-        <TransitionGroup
-            name="alerts-container"
-            tag="div"
-        >
-            <div
-                v-for="alert in alerts.slice().reverse()"
-                class="alert"
-                :key="alert"
-                :class="alert.type"
-            >{{alert.text}}</div>
+        <TransitionGroup name="alerts-container" tag="div">
+            <div v-for="alert in alerts" class="alert" :key="alert" :class="alert.type">
+                {{alert.text}}
+                <div class="alert__x" @click="removeAlert(alert.id)">X</div>
+            </div>
         </TransitionGroup>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { useAlerts } from '~/composables/alerts'
 const alerts = useAlerts()
 </script>
 
@@ -36,15 +30,16 @@ const alerts = useAlerts()
         > * {
             margin-left: auto;
             right: 0;
-            grid-template-columns: 100%;
-            display: grid;
-            grid-gap: var(--column-gap);
+            display: flex;
+            flex-direction: column-reverse;
+            gap: var(--column-gap);
             @media (min-width: 1200px) {
             }
         }
     }
 }
 .alert {
+    position: relative;
     pointer-events: auto;
     width: 250px;
     max-width: 100%;
@@ -52,6 +47,20 @@ const alerts = useAlerts()
     color: var(--color-secondary);
     border-radius: 5px;
     padding: 10px;
+    &__x {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: 5px;
+        background-color: rgba(var(--bgc-rgba), .3);
+        top: 10px;
+        right: 10px;
+        font-weight: bold;
+    }
     &.warn {
         background-color: rgba(255, 255, 0, .8);
         color: #000000;
